@@ -8,11 +8,16 @@ public class GameController : MonoBehaviour
     public int time = 30;
     public TextMeshProUGUI Timer;
     public MainMenuController MainMenu;
+    public int points = -1;
+    BombManager bombManager;
 
     public void StartGame()
     {
+        bombManager = FindObjectOfType<BombManager>();
+        points = -1;
         MainMenu.OnStartGame();
         StartCoroutine(TimerLoop());
+        bombManager.NewBomb();
     }
 
     IEnumerator TimerLoop()
@@ -30,6 +35,6 @@ public class GameController : MonoBehaviour
 
     public void EndGame()
     {
-        MainMenu.OnEndGame(0);
+        MainMenu.OnEndGame(points);
     }
 }

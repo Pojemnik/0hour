@@ -11,15 +11,17 @@ public class BombManager : MonoBehaviour
 
     private GameObject currentBombObj;
     private Bomb currentBomb;
+    private GameController gameController;
 
     private void Start()
     {
-        NewBomb();
+        gameController = FindObjectOfType<GameController>();
     }
 
-    private void NewBomb()
+    public void NewBomb()
     {
-        if(currentBomb != null)
+        gameController.points++;
+        if (currentBomb != null)
         {
             currentBomb.OnWin -= NewBomb;
             currentBomb.OnLoose -= Loose;
@@ -33,6 +35,7 @@ public class BombManager : MonoBehaviour
 
     private void Loose()
     {
-        print("Lost");
+        Destroy(currentBombObj);
+        gameController.EndGame();
     }
 }
