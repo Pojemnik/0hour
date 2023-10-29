@@ -17,7 +17,11 @@ public class Bomb : MonoBehaviour
     [SerializeField]
     private Button button6;
 
-    private string[] passwords = { "123456", "542166", "435241" };
+    public event System.Action OnWin;
+    public event System.Action OnLoose;
+
+    //private string[] passwords = { "123456", "542166", "435241" };
+    private string[] passwords = { "123456" };
     private string password;
     private string input;
 
@@ -40,11 +44,11 @@ public class Bomb : MonoBehaviour
         {
             if(input == password)
             {
-                print("ok");
+                OnWin?.Invoke();
             }
             else
             {
-                print("nie ok");
+                OnLoose?.Invoke();
             }
         }
     }

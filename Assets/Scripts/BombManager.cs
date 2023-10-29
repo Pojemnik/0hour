@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class BombManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject BombPrefab;
+    [SerializeField]
+    private Vector3 position;
+
+    private GameObject currentBombObj;
+    private Bomb currentBomb;
+
+    private void Start()
     {
-        
+        NewBomb();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void NewBomb()
     {
-        
+        if(currentBomb != null)
+        {
+            currentBomb.OnWin -= NewBomb;
+            currentBomb.OnLoose -= Loose;
+            Destroy(currentBombObj);
+        }
+        currentBombObj = Instantiate(BombPrefab, position, Quaternion.identity);
+        currentBomb = currentBombObj.GetComponent<Bomb>();
+        currentBomb.OnWin += NewBomb;
+        currentBomb.OnLoose += Loose;
+    }
+
+    private void Loose()
+    {
+        print("Lost");
     }
 }
