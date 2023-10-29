@@ -12,6 +12,7 @@ public class BombManager : MonoBehaviour
     private GameObject currentBombObj;
     private Bomb currentBomb;
     private GameController gameController;
+    
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class BombManager : MonoBehaviour
         {
             currentBomb.OnWin -= NewBomb;
             currentBomb.OnLoose -= Loose;
-            Destroy(currentBombObj);
+            DestroyImmediate(currentBombObj);
         }
         currentBombObj = Instantiate(BombPrefab, position, Quaternion.identity);
         currentBomb = currentBombObj.GetComponent<Bomb>();

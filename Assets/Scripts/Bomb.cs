@@ -20,10 +20,11 @@ public class Bomb : MonoBehaviour
     public event System.Action OnWin;
     public event System.Action OnLoose;
 
-    //private string[] passwords = { "123456", "542166", "435241" };
-    private string[] passwords = { "123456" };
-    private string password;
-    private string input;
+    private string[] passwords = { "123456", "542166", "435241" };
+    //public string[] passwords = { "123456" };
+    public string password;
+    public string input;
+    private BombTip tip;
 
     private void Start()
     {
@@ -35,6 +36,8 @@ public class Bomb : MonoBehaviour
         button4.OnClicked += () => OnButtonClicked("4");
         button5.OnClicked += () => OnButtonClicked("5");
         button6.OnClicked += () => OnButtonClicked("6");
+        tip = FindObjectOfType<BombTip>();
+        tip.Text.text = password;
     }
 
     private void OnButtonClicked(string index)
@@ -51,5 +54,10 @@ public class Bomb : MonoBehaviour
                 OnLoose?.Invoke();
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        tip.Text.text = "";
     }
 }
