@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
 
     public void EndGame()
     {
+        StopAllCoroutines();
         MainMenu.OnEndGame(points);
     }
 }
